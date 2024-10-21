@@ -1,12 +1,12 @@
-# code by Pranjwal Singh and James Ferdinand Combista
-# implemented +2
+# AI and Merging implemented with David Hack
+# implemented +2 and Skip Turn
 
 import random
 
 
 def start_game():
     colours = ("Red", "Yellow", "Green", "Blue")
-    ranks = list(range(1, 11)) + ["+2"]  # Add "+2" as a special rank
+    ranks = list(range(1, 11)) + ["+2"] + ["Skip Turn"] # Add "Skip Turn" to possible cards
     deck = [(rank, colour) for rank in ranks for colour in colours]
     random.shuffle(deck)
 
@@ -50,6 +50,11 @@ def main_loop(p1, p2, deck, central_card, whose_turn):
                 p2.append(deck.pop(0))
                 p2.append(deck.pop(0))
                 plus2_flag = False
+        
+            switch_card = True
+            if central_card[0] == "Skip Turn" and switch_card == True:
+                whose_turn = (whose_turn + 1)
+
 
         elif ans == 0:
             draw_card = deck.pop(0)
@@ -57,9 +62,6 @@ def main_loop(p1, p2, deck, central_card, whose_turn):
 
         p1, p2 = p2, p1
         whose_turn = (whose_turn + 1) % 2
-
-
-
 
 def valid_play(card1, card2):
     return card1[0] == card2[0] or card1[1] == card2[1]
