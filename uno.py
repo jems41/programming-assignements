@@ -16,6 +16,7 @@ def start_game():
     central_card = deck.pop(0)
     main_loop(p1, p2, deck, central_card, 0)
 
+
 def main_loop(p1, p2, deck, central_card, whose_turn):
     count = 0
     while len(p1) > 0 and len(p2) > 0:
@@ -74,12 +75,11 @@ def main_loop(p1, p2, deck, central_card, whose_turn):
         whose_turn = (whose_turn + 1) % 2
 
 # Determining winner code
-
     if count % 2 == 0:
         print(f"Player 2 wins")
     else:
         print("Player 1 wins!!!1")
-        
+
 def valid_play(card1, card2):
     return card1[0] == card2[0] or card1[1] == card2[1]
 
