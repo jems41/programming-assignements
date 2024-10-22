@@ -1,4 +1,4 @@
-# AI and Merging implemented with David Hack
+# code by David Hack and James Combista
 # implemented +2 and Skip Turn
 
 import random
@@ -6,18 +6,20 @@ import random
 
 def start_game():
     colours = ("Red", "Yellow", "Green", "Blue")
-    ranks = list(range(1, 11)) + ["+2"] + ["Skip Turn"] # Add "Skip Turn" to possible cards
+    ranks = list(range(1, 11)) + ["+2"] + ["Skip Turn"]  # Add "+2" and Skip Turn as special ranks
     deck = [(rank, colour) for rank in ranks for colour in colours]
     random.shuffle(deck)
 
-    p1 = [deck.pop(0) for _ in range(7)]
-    p2 = [deck.pop(0) for _ in range(7)]
+    p1 = [deck.pop(0) for _ in range(2)]
+    p2 = [deck.pop(0) for _ in range(2)]
 
     central_card = deck.pop(0)
     main_loop(p1, p2, deck, central_card, 0)
 
+
 def main_loop(p1, p2, deck, central_card, whose_turn):
-    while len(p1)>0 and len(p2)>0:
+    while len(p1) > 0 and len(p2) > 0:
+
         print(f"\nPlayer {whose_turn + 1}'s turn, here is your hand {p1}")
         print(f"Central card is: {central_card}")
 
@@ -28,7 +30,7 @@ def main_loop(p1, p2, deck, central_card, whose_turn):
                 ans = int(input("Bad Choice. You can (0) draw or (1) play: "))
                 if ans == 1 or ans == 0:
                     break
-        
+
         if ans == 1:
             valid_play_found = "No :("
 
@@ -44,23 +46,39 @@ def main_loop(p1, p2, deck, central_card, whose_turn):
                 else:
                     print("Invalid card selection. Please try again.")
 
+# +2 card code
             plus2_flag = True
-            if central_card[0] == "+2" and plus2_flag==True:
+
+            if central_card[0] == "+2" and plus2_flag == True:
                 print("The opponent must draw 2 cards!")
                 p2.append(deck.pop(0))
                 p2.append(deck.pop(0))
                 plus2_flag = False
-        
-            switch_card = True
-            if central_card[0] == "Skip Turn" and switch_card == True:
+
+# Skip turn card code ->
+
+            skip_turn = True
+            
+            if central_card[0] == "Skip Turn" and skip_turn == True:
+                print("The opponent turn has been skipped!")
                 whose_turn = (whose_turn + 1)
+                skip_turn = False
 
         elif ans == 0:
             draw_card = deck.pop(0)
             p1.append(draw_card)
 
-        p1, p2 = p2, p1
+        if skip_turn:
+            p1, p2 = p2, p1
+
         whose_turn = (whose_turn + 1) % 2
+
+# Determining winner code
+
+    winner = 1 if len(p1) == 0 else 2
+    print(f"Player {winner} wins!")
+
+
 
 def valid_play(card1, card2):
     return card1[0] == card2[0] or card1[1] == card2[1]
