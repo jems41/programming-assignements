@@ -73,7 +73,7 @@ def main_loop(p1, p2, deck, central_card, whose_turn):
 
         whose_turn = (whose_turn + 1) % 2
 
-# Determining winner code\
+# Determining winner code
 
     if count % 2 == 0:
         print(f"Player 2 wins")
