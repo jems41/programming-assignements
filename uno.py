@@ -10,8 +10,8 @@ def start_game():
     deck = [(rank, colour) for rank in ranks for colour in colours]
     random.shuffle(deck)
 
-    p1 = [deck.pop(0) for _ in range(1)]
-    p2 = [deck.pop(0) for _ in range(1)]
+    p1 = [deck.pop(0) for _ in range(7)]
+    p2 = [deck.pop(0) for _ in range(7)]
 
     central_card = deck.pop(0)
     main_loop(p1, p2, deck, central_card, 0)
