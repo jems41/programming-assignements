@@ -1,4 +1,4 @@
-# code by David Hack and James Combista
+# code by David Hack and James Combisa
 # implemented +2 and Skip Turn
 
 import random
